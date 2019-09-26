@@ -39,11 +39,11 @@ function getBands(artist) {
       var artistResult = response.data;
       var eventDate = moment(artistResult[0].datetime).format('MM/DD/YYYY');
 
-      console.log("========================================================================");
+      console.log("=============================== RESULTS ===============================");
       console.log("\nVenue name:", artistResult[0].venue.name);
       console.log("Location:", artistResult[0].venue.city);
       console.log("Date:", eventDate);
-      console.log("\n========================================================================");
+      console.log("\n================================= END =================================");
     })
     .catch(function () {
       console.log("Please enter a valid artist/band name...");
@@ -64,16 +64,21 @@ function getSongs(songName) {
 
     var songResult = data.tracks.items;
 
-    console.log("========================================================================");
+    console.log("=============================== RESULTS ===============================");
     console.log("\nArtist/Band: ", songResult[0].album.artists[0].name);
     console.log("Song Name: ", songResult[0].name);
     console.log("Preview URL: ", songResult[0].preview_url);
     console.log("Album Name: ", songResult[0].album.name);
-    console.log("\n========================================================================");
+    console.log("\n================================= END =================================");
   });
 }
 
 function getMovies(movieName) {
+
+    //Response if user does not type in a movie title
+    if (movieName === "") {
+      movieName = "Mr. Nobody";
+    }
 
   var movieUrl = "http://www.omdbapi.com/?apikey=42518777&t=" + movieName;
 
@@ -81,7 +86,7 @@ function getMovies(movieName) {
 
     var movieResult = response.data;
 
-    console.log("========================================================================");
+    console.log("=============================== RESULTS ===============================");
     console.log("\nTitle: ", movieResult.Title);
     console.log("Year: ", movieResult.Year);
     console.log("IMDb Rating: ", movieResult.Rated);
@@ -90,25 +95,38 @@ function getMovies(movieName) {
     console.log("Language: ", movieResult.Language);
     console.log("Plot: ", movieResult.Plot);
     console.log("Actors: ", movieResult.Actors);
-    console.log("\n========================================================================");
+    console.log("\n================================= END =================================");
 
   })
     .catch(function () {
       console.log("Please enter a valid movie title...");
     })
-
-  //Response if user does not type in a movie title
-  if (movieName === "") {
-    movieName = "Mr. Nobody";
-    console.log("========================================================================");
-    console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
-    console.log("It's on Netflix!");
-    console.log("\n========================================================================");
-  }
 }
 
 //Response for user input of "do-what-it-says" to be imported from random.txt
 
 function doWhatItSays() {
+  fs.readFile("random.txt", "utf8",function(error,data){
 
+    var randomTxt = data.split(",");
+    var action = randomTxt[0];
+    var value = randomTxt[1];
+
+    switch (action) {
+      case "concert-this":
+        getBands(value)
+        break;
+      case "spotify-this-song":
+        getSongs(value)
+        break;
+      case "movie-this":
+        getMovies(value)
+        break;
+      case "do-what-it-says":
+        doWhatItSays()
+        break;
+      default:
+        break;
+    }
+  })
 }
