@@ -39,11 +39,11 @@ function getBands(artist) {
       var artistResult = response.data;
       var eventDate = moment(artistResult[0].datetime).format('MM/DD/YYYY');
 
-      console.log("=============================== RESULTS ===============================");
+      console.log("=============================== RESULT ================================");
       console.log("\nVenue name:", artistResult[0].venue.name);
       console.log("Location:", artistResult[0].venue.city);
       console.log("Date:", eventDate);
-      console.log("\n================================= END =================================");
+      console.log("\n============================== END RESULT ==============================");
     })
     .catch(function () {
       console.log("Please enter a valid artist/band name...");
@@ -64,12 +64,12 @@ function getSongs(songName) {
 
     var songResult = data.tracks.items;
 
-    console.log("=============================== RESULTS ===============================");
+    console.log("=============================== RESULT ================================");
     console.log("\nArtist/Band: ", songResult[0].album.artists[0].name);
     console.log("Song Name: ", songResult[0].name);
     console.log("Preview URL: ", songResult[0].preview_url);
     console.log("Album Name: ", songResult[0].album.name);
-    console.log("\n================================= END =================================");
+    console.log("\n============================== END RESULT ==============================");
   });
 }
 
@@ -86,7 +86,7 @@ function getMovies(movieName) {
 
     var movieResult = response.data;
 
-    console.log("=============================== RESULTS ===============================");
+    console.log("=============================== RESULT ================================");
     console.log("\nTitle: ", movieResult.Title);
     console.log("Year: ", movieResult.Year);
     console.log("IMDb Rating: ", movieResult.Rated);
@@ -95,7 +95,7 @@ function getMovies(movieName) {
     console.log("Language: ", movieResult.Language);
     console.log("Plot: ", movieResult.Plot);
     console.log("Actors: ", movieResult.Actors);
-    console.log("\n================================= END =================================");
+    console.log("\n============================== END RESULT ==============================");
 
   })
     .catch(function () {
