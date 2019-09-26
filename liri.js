@@ -1,10 +1,10 @@
 require("dotenv").config();
 
+var fs = require("fs");
 var keys = require("./keys.js");
 var axios = require("axios");
 var moment = require("moment");
 var Spotify = require("node-spotify-api");
-var fs = require("fs");
 
 var spotify = new Spotify(keys.spotify);
 
@@ -12,6 +12,7 @@ var action = process.argv[2];
 var value = process.argv[3];
 
 switch (action) {
+
   case "concert-this":
     getBands(value)
     break;
@@ -22,7 +23,7 @@ switch (action) {
   case "movie-this":
     //If user has not specified a movie, use default
     if (value === "") {
-      value = defaultMovie;
+      value = "Mr. Nobody";
     }
     getMovies(value)
     break;
@@ -43,11 +44,11 @@ function getBands(artist) {
       var artistResult = response.data;
       var eventDate = moment(artistResult[0].datetime).format('MM/DD/YYYY');
 
-      console.log("-----------------------------------");
-      console.log("Venue name:", artistResult[0].venue.name);
+      console.log("========================================================================");
+      console.log("\nVenue name:", artistResult[0].venue.name);
       console.log("Location:", artistResult[0].venue.city);
       console.log("Date:", eventDate);
-      console.log("-----------------------------------");
+      console.log("\n========================================================================");
     })
     .catch(function () {
       console.log("Please enter a valid artist/band name...");
@@ -68,12 +69,12 @@ function getSongs(songName) {
 
     var songResult = data.tracks.items;
 
-    console.log("-----------------------------------");
-    console.log("Artist/Band: ", songResult[0].album.artists[0].name);
-    console.log("Song Name: ",songResult[0].name);
+    console.log("========================================================================");
+    console.log("\nArtist/Band: ", songResult[0].album.artists[0].name);
+    console.log("Song Name: ", songResult[0].name);
     console.log("Preview URL: ", songResult[0].preview_url);
     console.log("Album Name: ", songResult[0].album.name);
-    console.log("-----------------------------------");
+    console.log("\n========================================================================");
   });
 }
 
@@ -85,8 +86,8 @@ function getMovies(movieName) {
 
     var movieResult = response.data;
 
-    console.log("-----------------------------------");
-    console.log("Title: ", movieResult.Title);
+    console.log("========================================================================");
+    console.log("\nTitle: ", movieResult.Title);
     console.log("Year: ", movieResult.Year);
     console.log("IMDb Rating: ", movieResult.Rated);
     console.log("Rotten Tomatoes Rating: ", movieResult.Ratings[1].Value);
@@ -94,32 +95,28 @@ function getMovies(movieName) {
     console.log("Language: ", movieResult.Language);
     console.log("Plot: ", movieResult.Plot);
     console.log("Actors: ", movieResult.Actors);
-    console.log("-----------------------------------");
+    console.log("\n========================================================================");
 
   })
     .catch(function () {
       console.log("Please enter a valid movie title...");
-    });
+    })
+
   //Response if user does not type in a movie title
+  if (movieName === "Mr. Nobody") {
+    console.log("========================================================================");
+    console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
+    console.log("It's on Netflix!");
+    console.log("\n========================================================================");
+  }
 }
 
+//Response for user input of "do-what-it-says" to be imported from random.txt
+
 function doWhatItSays() {
-  fs.readFile("random.txt", "utf8", function (data) {
-    data = data.split(",");
-    var action = data[0]
-    var value = data[1]
-    switch (action) {
-      case "concert-this":
-        getBands(value)
-        break;
-      case "spotify-this-song":
-        getSongs(value)
-        break;
-      case "movie-this":
-        getMovies(value)
-        break;
-      default:
-        break;
-    }
+  fs.readFile('random.txt', "utf8", function (error, data) {
+    var txt = data.split(',');
+
+    spotifyThisSong(txt[1]);
   });
 }
