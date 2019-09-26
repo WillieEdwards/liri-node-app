@@ -9,7 +9,7 @@ var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
 
 var action = process.argv[2];
-var value = process.argv[3];
+var value = process.argv.slice(3).join(" ");
 
 switch (action) {
 
@@ -17,14 +17,9 @@ switch (action) {
     getBands(value)
     break;
   case "spotify-this-song":
-    //If user has not specified a song, use default
     getSongs(value)
     break;
   case "movie-this":
-    //If user has not specified a movie, use default
-    if (value === "") {
-      value = "Mr. Nobody";
-    }
     getMovies(value)
     break;
   case "do-what-it-says":
@@ -103,7 +98,8 @@ function getMovies(movieName) {
     })
 
   //Response if user does not type in a movie title
-  if (movieName === "Mr. Nobody") {
+  if (movieName === "") {
+    movieName = "Mr. Nobody";
     console.log("========================================================================");
     console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
     console.log("It's on Netflix!");
@@ -114,9 +110,5 @@ function getMovies(movieName) {
 //Response for user input of "do-what-it-says" to be imported from random.txt
 
 function doWhatItSays() {
-  fs.readFile('random.txt', "utf8", function (error, data) {
-    var txt = data.split(',');
 
-    spotifyThisSong(txt[1]);
-  });
 }
