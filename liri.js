@@ -40,12 +40,14 @@ function getBands(artist) {
   axios.get(artistUrl)
     .then(function (response) {
 
-      var artistResult = response.data
+      var artistResult = response.data;
       var eventDate = moment(artistResult[0].datetime).format('MM/DD/YYYY');
 
+      console.log("-----------------------------------");
       console.log("Venue name:", artistResult[0].venue.name);
       console.log("Location:", artistResult[0].venue.city);
       console.log("Date:", eventDate);
+      console.log("-----------------------------------");
     })
     .catch(function () {
       console.log("Please enter a valid artist/band name...");
@@ -64,14 +66,14 @@ function getSongs(songName) {
       return console.log("Error occurred: " + err);
     }
 
-    //Artist(s)
-    console.log("Artist/Band: ", data.tracks.items[0].album.artists[0].name)
-    //Song name
+    var songResult = data.tracks.items;
 
-    //A preview URL of the song from Spotify
-    console.log("Preview URL: ", data.tracks.items[0].preview_url)
-    //The album that the song is from
-    console.log("Album Name: ", data.tracks.items[0].album.name)
+    console.log("-----------------------------------");
+    console.log("Artist/Band: ", songResult[0].album.artists[0].name);
+    console.log("Song Name: ",songResult[0].name);
+    console.log("Preview URL: ", songResult[0].preview_url);
+    console.log("Album Name: ", songResult[0].album.name);
+    console.log("-----------------------------------");
   });
 }
 
@@ -83,6 +85,7 @@ function getMovies(movieName) {
 
     var movieResult = response.data;
 
+    console.log("-----------------------------------");
     console.log("Title: ", movieResult.Title);
     console.log("Year: ", movieResult.Year);
     console.log("IMDb Rating: ", movieResult.Rated);
@@ -91,6 +94,7 @@ function getMovies(movieName) {
     console.log("Language: ", movieResult.Language);
     console.log("Plot: ", movieResult.Plot);
     console.log("Actors: ", movieResult.Actors);
+    console.log("-----------------------------------");
 
   })
     .catch(function () {
