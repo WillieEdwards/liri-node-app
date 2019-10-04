@@ -1,6 +1,6 @@
-# **LIRI-BOT** (a Language Interpretation and Recognition Interface) #
+# **LIRI-BOT** (a Language Interpretation and Recognition Interface)
 
-# Overview #
+# Overview
 
 **LIRI** is a command line node app that takes in parameters and gives you back data based off the following parameters:
 
@@ -9,7 +9,7 @@
 * movie-this
 * do-what-it-says
 
-# Applied Technologies #
+# Applied Technologies
 
 **GitHub** - file repository
 
@@ -30,7 +30,7 @@
 * Moment (https://www.npmjs.com/package/moment)
 * DotEnv (https://www.npmjs.com/package/dotenv)
 
-# Prerequisites #
+# Prerequisites
 
 1. Node.js - download the latest version of Node (https://nodejs.org/en/).
 
@@ -38,7 +38,7 @@
 
 1. Send requests using the axios package to the Bands in Town, Spotify and OMDB APIs.
 
-# concert-this #
+# concert-this
 
 This will search the Bands in Town Artist Events API for an artist and render the following information about each event to the terminal:
 
@@ -49,7 +49,7 @@ This will search the Bands in Town Artist Events API for an artist and render th
 **Example:** node .\liri.js concert-this "input band name here"
 ![concert-this](/images/concert-this.png)
 
-# spotify-this-song #
+# spotify-this-song
 
 This will show the following information about the song in your terminal/bash window
 
@@ -61,7 +61,7 @@ This will show the following information about the song in your terminal/bash wi
 **Example:** node .\liri.js spotify-this-song "input song name here"
 ![spotify-this-song](/images/spotify-this-song.png)
 
-# movie-this #
+# movie-this
 
 This will output the following information to your terminal/bash window:
 
@@ -77,9 +77,9 @@ This will output the following information to your terminal/bash window:
 **Example:** node .\liri.js movie-this "input movie name here"
 ![movie-this](/images/movie-this.png)
 
-# do-what-it-says #
+# do-what-it-says
 
 Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
 
-Example:
+**Example:** node .\liri.js do-what-it-says
 ![do-what-it-says](/images/do-what-it-says.png)
